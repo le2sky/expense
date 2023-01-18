@@ -7,14 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ExpenseReport {
+public class ExpenseReporter {
 
   private List<Expense> expenses = new ArrayList<Expense>();
   private int total;
   private int mealExpenses;
   private ReportPrinter printer;
 
-  public ExpenseReport() {
+  public ExpenseReporter() {
     total = 0;
     mealExpenses = 0;
   }
