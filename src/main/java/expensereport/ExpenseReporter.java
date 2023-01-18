@@ -4,6 +4,7 @@ package expensereport;
 public class ExpenseReporter {
 
   private final ExpenseReport expenseReport = new ExpenseReport();
+  private final ExpenseNamer expenseNamer = new ExpenseReportNamer();
   private ReportPrinter printer;
 
   public ExpenseReporter() {
@@ -32,19 +33,7 @@ public class ExpenseReporter {
   private void printExpense(Expense expense) {
     printer.print(String.format("%s\t%s\t$%.02f\n",
         expense.isOverage() ? "X" : " ",
-        getName(expense), penniesToDollars(expense.amount)));
-  }
-
-  private String getName(Expense expense) {
-    String name = "TILT";
-    if (expense instanceof DinnerExpense) {
-      name = "Dinner";
-    } else if (expense instanceof BreakfastExpense) {
-      name = "Breakfast";
-    } else if (expense instanceof CarRentalExpense) {
-      name = "Car Rental";
-    }
-    return name;
+        expenseNamer.getName(expense), penniesToDollars(expense.amount)));
   }
 
   private void printTotals() {
