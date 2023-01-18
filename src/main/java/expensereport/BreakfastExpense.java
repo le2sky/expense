@@ -1,8 +1,5 @@
 package expensereport;
 
-import static expensereport.Expense.Type.BREAKFAST;
-import static expensereport.Expense.Type.DINNER;
-
 public class BreakfastExpense extends Expense {
 
   public BreakfastExpense(int amount) {
@@ -11,12 +8,11 @@ public class BreakfastExpense extends Expense {
 
   @Override
   boolean isMeal() {
-    return type == BREAKFAST || type == DINNER;
+    return true;
   }
 
   @Override
   boolean isOverage() {
-    return (type == DINNER && amount > 5000)
-        || (type == BREAKFAST && amount > 1000);
+    return amount > 1000;
   }
 }
