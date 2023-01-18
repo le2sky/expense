@@ -1,10 +1,9 @@
 package expensereport;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
-
-import static expensereport.Expense.Type.*;
-import static org.junit.Assert.assertEquals;
 
 public class ExpenseReporterTest {
 
@@ -31,7 +30,7 @@ public class ExpenseReporterTest {
 
   @Test
   public void printOneDinner() {
-    report.addExpense(new Expense(DINNER, 1678));
+    report.addExpense(new DinnerExpense(1678));
     report.printReport(printer);
 
     assertEquals(
@@ -45,8 +44,8 @@ public class ExpenseReporterTest {
 
   @Test
   public void twoMeals() throws Exception {
-    report.addExpense(new Expense(DINNER, 1000));
-    report.addExpense(new Expense(BREAKFAST, 500));
+    report.addExpense(new DinnerExpense(1000));
+    report.addExpense(new BreakfastExpense(500));
     report.printReport(printer);
 
     assertEquals(
@@ -62,9 +61,9 @@ public class ExpenseReporterTest {
 
   @Test
   public void twoMealsAndCarRental() throws Exception {
-    report.addExpense(new Expense(DINNER, 1000));
-    report.addExpense(new Expense(BREAKFAST, 500));
-    report.addExpense(new Expense(CAR_RENTAL, 50000));
+    report.addExpense(new DinnerExpense(1000));
+    report.addExpense(new BreakfastExpense(500));
+    report.addExpense(new CarRentalExpense(50000));
     report.printReport(printer);
 
     assertEquals(
@@ -80,10 +79,10 @@ public class ExpenseReporterTest {
 
   @Test
   public void overages() throws Exception {
-    report.addExpense(new Expense(BREAKFAST, 1000));
-    report.addExpense(new Expense(BREAKFAST, 1001));
-    report.addExpense(new Expense(DINNER, 5000));
-    report.addExpense(new Expense(DINNER, 5001));
+    report.addExpense(new BreakfastExpense(1000));
+    report.addExpense(new BreakfastExpense(1001));
+    report.addExpense(new DinnerExpense(5000));
+    report.addExpense(new DinnerExpense(5001));
     report.printReport(printer);
 
     assertEquals(
