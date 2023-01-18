@@ -1,5 +1,6 @@
 package expensereport;
 
 public interface ReportPrinter {
-    public void print(String text);
+
+  public void print(String text);
 }
