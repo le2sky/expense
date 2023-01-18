@@ -1,27 +1,41 @@
 package expensereport;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static expensereport.Expense.Type.BREAKFAST;
 import static expensereport.Expense.Type.DINNER;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ExpenseReport {
 
   private List<Expense> expenses = new ArrayList<Expense>();
+  private int total;
+  private int mealExpenses;
+
+  public ExpenseReport() {
+    total = 0;
+    mealExpenses = 0;
+  }
 
   public void printReport(ReportPrinter printer) {
-    int total = 0;
-    int mealExpenses = 0;
+    printHeader(printer);
+    totalUpExpenses();
+    printExpenses(printer);
+    printTotals(printer, total, mealExpenses);
+  }
 
-    printer.print("Expenses " + getDate() + "\n");
-
+  private void totalUpExpenses() {
     for (Expense expense : expenses) {
       if (expense.type == BREAKFAST || expense.type == DINNER) {
         mealExpenses += expense.amount;
       }
+      total += expense.amount;
+    }
+  }
 
+  private void printExpenses(ReportPrinter printer) {
+    for (Expense expense : expenses) {
       String name = "TILT";
       switch (expense.type) {
         case DINNER:
@@ -38,12 +52,16 @@ public class ExpenseReport {
           ((expense.type == DINNER && expense.amount > 5000)
               || (expense.type == BREAKFAST && expense.amount > 1000)) ? "X" : " ",
           name, penniesToDollars(expense.amount)));
-
-      total += expense.amount;
     }
+  }
 
+  private void printTotals(ReportPrinter printer, int total, int mealExpenses) {
     printer.print(String.format("\nMeal expenses $%.02f", penniesToDollars(mealExpenses)));
     printer.print(String.format("\nTotal $%.02f", penniesToDollars(total)));
+  }
+
+  private void printHeader(ReportPrinter printer) {
+    printer.print("Expenses " + getDate() + "\n");
   }
 
   private double penniesToDollars(int amount) {
