@@ -1,8 +1,5 @@
 package expensereport;
 
-import static expensereport.Expense.Type.BREAKFAST;
-import static expensereport.Expense.Type.DINNER;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,14 +19,10 @@ public class ExpenseReport {
   }
 
   void addTotals(Expense expense) {
-    if (isMeal(expense)) {
+    if (expense.isMeal()) {
       mealExpenses += expense.amount;
     }
     total += expense.amount;
-  }
-
-  boolean isMeal(Expense expense) {
-    return expense.type == BREAKFAST || expense.type == DINNER;
   }
 
   public void addExpense(Expense expense) {
