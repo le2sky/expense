@@ -42,12 +42,15 @@ public class ExpenseReport {
 
   private void printExpenses() {
     for (Expense expense : expenses) {
-      String name = getName(expense);
-      printer.print(String.format("%s\t%s\t$%.02f\n",
-          ((expense.type == DINNER && expense.amount > 5000)
-              || (expense.type == BREAKFAST && expense.amount > 1000)) ? "X" : " ",
-          name, penniesToDollars(expense.amount)));
+      printExpense(expense);
     }
+  }
+
+  private void printExpense(Expense expense) {
+    printer.print(String.format("%s\t%s\t$%.02f\n",
+        ((expense.type == DINNER && expense.amount > 5000)
+            || (expense.type == BREAKFAST && expense.amount > 1000)) ? "X" : " ",
+        getName(expense), penniesToDollars(expense.amount)));
   }
 
   private String getName(Expense expense) {
